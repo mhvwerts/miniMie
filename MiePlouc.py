@@ -157,7 +157,9 @@ def get_ncmplx_vector(wvln_nm, mat, MFPradius_nm = None):
         wvln_nm    vector of wavelengths (float)
                    for which dielectric function
                    should be calculated
-        mat        (string) describing the material
+        mat        (string) take material properties from library
+                   (float) generic material with constant real
+                           refractive index
         MFPdiam_nm    (float) if specified it applies a mean free path
                     correction (only available for gold and silver,
                     ignored elsewhere). Diameter of the particle
@@ -232,6 +234,8 @@ def get_ncmplx_vector(wvln_nm, mat, MFPradius_nm = None):
                                          FV, OMP, OM0)   
         else:
             ncmplx_wvln = ncmplx_wvln0
+    elif type(mat)==float:
+        ncmplx_wvln = np.ones_like(wvln_nm) * mat
     else:
         raise ValueError("material 'mat' not known (lowercase only!)")
     return ncmplx_wvln

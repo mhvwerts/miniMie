@@ -25,7 +25,7 @@ from MiePlouc import Mie_spectrum
 
 # some gold to see that everything works fine
 d_nm=90.
-wavelens =	np.linspace(350,1000,500)
+wavelens =	np.linspace(250,1000,500)
 Qext,Qsca = Mie_spectrum(wavelens, d_nm, mfp=False,mat='gold')
 Qext_mfp, Qsca_mfp = Mie_spectrum(wavelens, d_nm, mfp=True,mat='gold')
 
@@ -48,6 +48,7 @@ plt.figure(2)
 plt.clf()
 plt.plot(wavelens,Qext,label='Q_ext')
 plt.plot(wavelens,Qsca,label='Q_sca')
+plt.plot(wavelens,2e8*pow(wavelens,-4),label='lambda-4')
 plt.ylabel('Q')
 plt.xlabel('wavelength / nm')
 plt.legend()
