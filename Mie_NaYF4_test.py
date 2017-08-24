@@ -21,7 +21,7 @@ phisca=Qsca/Qext
 import numpy as np
 import matplotlib.pyplot as plt
 
-from MiePlouc import Mie_spectrum
+from miniMie import Mie_spectrum
 
 # some gold to see that everything works fine
 d_nm=90.

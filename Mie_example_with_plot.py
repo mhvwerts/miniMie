@@ -23,7 +23,7 @@ phisca=Qsca/Qext
 import numpy as np
 import matplotlib.pyplot as plt
 
-from MiePlouc import Mie_spectrum
+from miniMie import Mie_spectrum
 
 d_nm=90.
 wavelens =	np.linspace(380,1000,500)
