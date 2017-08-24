@@ -25,10 +25,10 @@ import matplotlib.pyplot as plt
 
 from MiePlouc import Mie_spectrum
 
-d_nm=50.
+d_nm=90.
 wavelens =	np.linspace(380,1000,500)
-Qext,Qsca = Mie_spectrum(wavelens, d_nm, mfp=False)
-Qext_mfp, Qsca_mfp = Mie_spectrum(wavelens, d_nm, mfp=True)
+Qext,Qsca = Mie_spectrum(wavelens, d_nm, mfp=False,mat='gold')
+Qext_mfp, Qsca_mfp = Mie_spectrum(wavelens, d_nm, mfp=True,mat='gold')
 
 plt.figure(1)
 plt.clf()

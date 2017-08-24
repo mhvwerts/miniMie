@@ -4,7 +4,11 @@ Mie calculation routines:
 output Qext and Qsca for input vector of wavelengths
 
 M. H. V. Werts
+
 """
+
+#TODO BENCHMARK? in particular for gold, silver particles
+
 from numpy import sqrt,array,arange,pi,concatenate,sin,cos,zeros
 from scipy import special
 from scipy import interpolate
