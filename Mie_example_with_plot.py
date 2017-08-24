@@ -20,6 +20,3 @@ plt.plot(wavelens,Qsca,label='Q_sca')
 plt.ylabel('Q')
 plt.xlabel('wavelength / nm')
 plt.show()
-
-# à toi de convertir Q_ext en coefficient d'extinction!
-# la réponse est dans l'article Analyst 2013
