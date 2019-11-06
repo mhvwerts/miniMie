@@ -3,11 +3,47 @@
 Mie calculation routines:
 output Qext and Qsca for input vector of wavelengths
 
-M. H. V. Werts
+M. H. V. Werts, CNRS, ENS Rennes, France.
+
+Read the license text at the end of this file before using this software.
+
+
+
+ Literature references
+
+ (Bohren and Huffman 1983):
+      C.F. Bohren and D.R. Huffman, "Absorption and Scattering of Light
+      by Small Particles", Wiley Interscience: New York, 1983.
+
+ (Maetzler 2002): 
+       C. Maetzler, "MATLAB Functions for Mie Scattering and Absorption", 
+       Research Report 2002-08, Institut fuer Angewandte Physik, 
+       Universitaet Bern, 2002
+       downloaded from http://www.iap.unibe.ch/publications/download/201/en/
+
+ (Johnson and Christy 1972):
+       P.B. Johnson and R.W. Christy, "Optical Constants of the Noble 
+       Metals", Phys. Rev. B. 1972, (6), 4370
+
+ (Haiss et al. 2007):
+       W. Haiss, N.T.K. Thanh, J. Aveyard, D.G. Fernig, "Determination of
+       size and concentration of gold nanoparticles from UV-vis spectra.",
+       Anal. Chem. 2007, (79), 4215
+
+ (Kreibig 1974):
+       U. Kreibig, "Electronic properties of small silver particles: the
+       optical constants and their temperature dependence",
+       J. Phys. F: Metal Phys. 1974, 4, 999
+
+ (Murata and Tanaka 2010):
+       K.I. Murata and H. Tanaka, "Surface-wetting effects on the liquid-liquid
+       transition of a single-component molecular liquid.",
+       Nature Commun. 2010, 1, 16
 
 """
 
-#TODO BENCHMARK? in particular for gold, silver particles
+
+#TODO ADD BENCHMARKING RESULTS in particular for gold, silver particles
 
 from numpy import sqrt,array,arange,pi,concatenate,sin,cos,zeros
 from scipy import special
@@ -276,34 +312,6 @@ def Mie_spectrum(wvln_nm, d_nm, mat="gold", n_medium=1.33, mfp = True):
     return (Qext,Qsca)
     
 
-# Literature references
-#
-#TODO (Bohren and Huffman) <insert Ref>
-#    
-# (Maetzler 2002): 
-#       C. Maetzler, "MATLAB Functions for Mie Scattering and Absorption", 
-#       Research Report 2002-08, Institut fuer Angewandte Physik, 
-#       Universitaet Bern, 2002
-#       downloaded from http://www.iap.unibe.ch/publications/download/201/en/
-#
-# (Johnson and Christy 1972):
-#       P.B. Johnson and R.W. Christy, "Optical Constants of the Noble 
-#       Metals", Phys. Rev. B. 1972, (6), 4370
-#
-# (Haiss et al. 2007):
-#       W. Haiss, N.T.K. Thanh, J. Aveyard, D.G. Fernig, "Determination of
-#       size and concentration of gold nanoparticles from UV-vis spectra.",
-#       Anal. Chem. 2007, (79), 4215
-#
-# (Kreibig 1974):
-#       U. Kreibig, "Electronic properties of small silver particles: the
-#       optical constants and their temperature dependence",
-#       J. Phys. F: Metal Phys. 1974, 4, 999
-#
-# (Murata and Tanaka 2010):
-#       K.I. Murata and H. Tanaka, "Surface-wetting effects on the liquid-liquid
-#       transition of a single-component molecular liquid.",
-#       Nature Commun. 2010, 1, 16
 
 
 
@@ -339,8 +347,42 @@ if __name__ == "__main__":
     plt.show()
 
 
-
-
+#
+#Copyright M. H. V. Werts, 2013-2019
+#
+#martinus point werts à ens-rennes point fr
+#
+#
+#This software is a computer program whose purpose is to calculate 
+#the optical cross sections of nanoparticles using Mie theory.
+#
+#This software is governed by the CeCILL  license under French law and
+#abiding by the rules of distribution of free software.  You can  use, 
+#modify and/ or redistribute the software under the terms of the CeCILL
+#license as circulated by CEA, CNRS and INRIA at the following URL
+#"http://www.cecill.info". 
+#
+#As a counterpart to the access to the source code and  rights to copy,
+#modify and redistribute granted by the license, users are provided only
+#with a limited warranty  and the software's author,  the holder of the
+#economic rights,  and the successive licensors  have only  limited
+#liability. 
+#
+#In this respect, the user's attention is drawn to the risks associated
+#with loading,  using,  modifying and/or developing or reproducing the
+#software by the user in light of its specific status of free software,
+#that may mean  that it is complicated to manipulate,  and  that  also
+#therefore means  that it is reserved for developers  and  experienced
+#professionals having in-depth computer knowledge. Users are therefore
+#encouraged to load and test the software's suitability as regards their
+#requirements in conditions enabling the security of their systems and/or 
+#data to be ensured and,  more generally, to use and operate it in the 
+#same conditions as regards security. 
+#
+#The fact that you are presently reading this means that you have had
+#knowledge of the CeCILL license and that you accept its terms.
+#
+#
 
     
     
