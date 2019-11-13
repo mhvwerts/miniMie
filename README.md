@@ -1,6 +1,6 @@
 # miniMie: calculate optical cross sections of spherical particles
 
-This is very much a work in progress. It will be updated irregularly.
+This repository is very much a work in progress. It will be updated irregularly. The basic code for doing simple Mie calculations is functioning correctly, but it needs further documentation and illustration.
 
 miniMie is a small scientific Python module for calculating optical cross sections (extinction, scattering, absorption) for spherical (nano)particles in a medium using Mie theory. It depends on numpy and scipy. For plotting, also matplotlib is needed.
 
