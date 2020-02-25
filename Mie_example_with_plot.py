@@ -8,7 +8,6 @@ Created on Fri Oct  7 14:13:42 2016
 Remember
 
 # calculate extinction cross sections
-sig_ext = (r_part*r_part)*pi*Qext    
 sig_ext = Qext * pi * r**2
 
 Extinction coefficient:
