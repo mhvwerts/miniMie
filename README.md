@@ -11,6 +11,11 @@ This implementation is distributed under the CeCILL license (a GNU GPL-compatibl
 
 The basic code for doing simple Mie calculations functions correctly, but it needs further documentation and illustration.
 
+## Example notebooks
+
+* [Calculation of molar extinction coefficients of nanospheres](https://github.com/mhvwerts/miniMie/blob/master/Example%20-%20Extinction%20coefficients%20and%20scattering%20spectra%20of%20gold%20nanospheres.ipynb)
+
+
 ## TO DO
 
 * Include further application examples, in particular as Jupyter Notebooks
