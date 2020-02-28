@@ -13,7 +13,7 @@ The basic code for doing simple Mie calculations functions correctly, but it nee
 
 ## Example notebooks
 
-* [Calculation of molar extinction coefficients of nanospheres](https://github.com/mhvwerts/miniMie/blob/master/Example%20-%20Extinction%20coefficients%20and%20scattering%20spectra%20of%20gold%20nanospheres.ipynb)
+* [Calculation of molar extinction coefficients of nanospheres](https://github.com/mhvwerts/miniMie/blob/master/Example%20-%20Extinction%20coefficients%20of%20gold%20nanospheres.ipynb)
 
 
 ## TO DO
