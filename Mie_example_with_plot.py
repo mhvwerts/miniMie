@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Oct  7 14:13:42 2016
-
 @author: werts
 
 
@@ -15,7 +13,6 @@ epsilon=1/(3.82e-25)*sig_ext
 
 Scattering efficiency:
 phisca=Qsca/Qext    
-
 """
 
 
@@ -26,8 +23,12 @@ from miniMie import Mie_spectrum
 
 d_nm=90.
 wavelens =	np.linspace(380,1000,500)
-Qext,Qsca = Mie_spectrum(wavelens, d_nm, mfp=False,mat='gold')
-Qext_mfp, Qsca_mfp = Mie_spectrum(wavelens, d_nm, mfp=True,mat='gold')
+Qext,Qsca = Mie_spectrum(wavelens,
+                         d_nm, mat='gold', mfp=False,
+                         n_medium=1.33)
+Qext_mfp, Qsca_mfp = Mie_spectrum(wavelens,
+                         d_nm, mat='gold', mfp=True,
+                         n_medium=1.33)
 
 plt.figure(1)
 plt.clf()

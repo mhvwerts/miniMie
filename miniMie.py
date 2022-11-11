@@ -45,10 +45,11 @@ Read the license text at the end of this file before using this software.
 
 #TODO ADD BENCHMARKING RESULTS in particular for gold, silver particles
 
-from numpy import sqrt,array,arange,pi,concatenate,sin,cos,zeros
+import numpy as np
+from numpy import array, arange, zeros, concatenate
+from numpy import sqrt, sin, cos, pi
 from scipy import special
 from scipy import interpolate
-import numpy as np
 
 
 
@@ -79,7 +80,6 @@ def Mie_abcd(m, x, nmax):
     cn = (bx*ahx - hx*ax)/(bz*ahx - hx*az)
     dn = m*(bx*ahx - hx*ax)/(m2*bz*ahx - hx*az)
     return (an,bn,cn,dn)
-
 
     
 def Mie(m, x):
@@ -124,29 +124,30 @@ def Mie(m, x):
     asy2 = c2n*(anp*bnp + anpp*bnpp)
     asy = 4.0/x2 * sum(asy1+asy2)/Qsca
 
-    # we do not calculated the following, contrary to original code:
-    # Qb backscatter, Qratio
+    # We do not yet calculate the following properties,
+    # contrary to the original Maetzler code:
+    # Qb (backscatter), Qratio
   
     # return results as a tuple
     return (m.real, m.imag, x, Qext, Qsca, Qabs, asy)
 
 
-
 def ncmplx_mfpcorr(ncmplx_bulk, radius, waveln, FV, OMP, OM0):
-    """mean free path correction
+    """Mean free path correction
     
-    the input takes the "bulk" complex dielectric function
+    The input takes the "bulk" complex dielectric function
     (as a vector)
     together with a vector of the wavelengths
     and material parameters
     
-    returns the MFP-corrected dielectric function
+    Returns the MFP-corrected dielectric function
     
     
-    adapted from Haiss FORTRAN code (Haiss et al. 2007),
-    which is in cgs units, which was maintained here
-    We used this code with minimal changes 
-    (this is why there are UPPERCASE variable names...)
+    Adapted from Haiss FORTRAN code (Haiss et al. 2007).
+    This code is in cgs units, which was maintained here.
+    We used the code with minimal changes in order to avoid errors;
+    this is why there are UPPERCASE variable names...
+    
     radius, waveln in nanometers
     FV in cm/s, OMP, OM0 in 1E-14 Hz
     """
@@ -176,13 +177,12 @@ def ncmplx_mfpcorr(ncmplx_bulk, radius, waveln, FV, OMP, OM0):
     EPS2R = A2R + B2
     #	Reconvert EPS1R and EPS2R back to n and k:
     rnr = sqrt((A1R + B1)/2. + \
-        sqrt((A1R/2.+B1/2.)*(A1R/2.+B1/2.)+(A2R/2.+B2/2.)*(A2R/2.+B2/2.))) 
+          sqrt((A1R/2.+B1/2.)*(A1R/2.+B1/2.)+(A2R/2.+B2/2.)*(A2R/2.+B2/2.))) 
     rkr = sqrt(-(A1R + B1)/2. + \
-    sqrt((A1R/2.+B1/2.)*(A1R/2.+B1/2.)+(A2R/2.+B2/2.)*(A2R/2.+B2/2.)))
+          sqrt((A1R/2.+B1/2.)*(A1R/2.+B1/2.)+(A2R/2.+B2/2.)*(A2R/2.+B2/2.)))
     # reconstruct complex index   
     ncmplx_corr = complex(1,0) * rnr + complex(0,1) * rkr
     return ncmplx_corr
-
 
 
 def get_ncmplx_vector(wvln_nm, mat, MFPradius_nm = None):
@@ -278,7 +278,7 @@ def get_ncmplx_vector(wvln_nm, mat, MFPradius_nm = None):
 
 
 
-def Mie_spectrum(wvln_nm, d_nm, mat="gold", n_medium=1.33, mfp = True):
+def Mie_spectrum(wvln_nm, d_nm, mat="gold", n_medium=1.33, mfp=True):
     """generate extinction and scattering spectra 
     for a sphere of diameter d_nm in medium with refractive index n_medium
     sampled on the wavelengths specified in wvln_nm
@@ -313,18 +313,13 @@ def Mie_spectrum(wvln_nm, d_nm, mat="gold", n_medium=1.33, mfp = True):
     
 
 
-
-
-
+# Execute the following only if run as a script.
+# Testing code goes here.
 if __name__ == "__main__":
-    # execute only if run as a script
-    # testing code goes here
-
-    #import numpy as np
     import matplotlib.pyplot as plt
     
     d_nm=50.
-    wavelens =	np.linspace(380,1000,500)
+    wavelens =	np.linspace(380, 1000, 500)
     Qext,Qsca = Mie_spectrum(wavelens, d_nm, mfp=False)
     Qext_mfp, Qsca_mfp = Mie_spectrum(wavelens, d_nm, mfp=True)
     
@@ -348,7 +343,7 @@ if __name__ == "__main__":
 
 
 #
-#Copyright M. H. V. Werts, 2013-2019
+#Copyright M. H. V. Werts, 2013-2022
 #
 #martinus point werts à ens-rennes point fr
 #
