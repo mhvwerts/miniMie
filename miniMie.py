@@ -343,7 +343,7 @@ if __name__ == "__main__":
 
 
 #
-#Copyright M. H. V. Werts, 2013-2022
+#Copyright M. H. V. Werts, 2013-2023
 #
 #martinus point werts à ens-rennes point fr
 #
@@ -355,7 +355,8 @@ if __name__ == "__main__":
 #abiding by the rules of distribution of free software.  You can  use, 
 #modify and/ or redistribute the software under the terms of the CeCILL
 #license as circulated by CEA, CNRS and INRIA at the following URL
-#"http://www.cecill.info". 
+#"https://cecill.info". See also the file 'LICENSE' distributed with this
+#software.
 #
 #As a counterpart to the access to the source code and  rights to copy,
 #modify and redistribute granted by the license, users are provided only
