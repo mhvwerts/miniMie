@@ -17,7 +17,7 @@ import warnings
 
 def mie_ab(m: complex, x: float) -> np.ndarray:
     z = m * x
-    nmax = np.int(np.round(2 + x + 4 * x**(1/3)))
+    nmax = int(np.round(2 + x + 4 * x**(1/3)))
     nmx = np.round(np.amax([nmax, np.abs(z)]) + 16).astype(int)
     n = np.arange(1, nmax + 1)
     nu = n + 0.5
@@ -40,7 +40,7 @@ def mie_ab(m: complex, x: float) -> np.ndarray:
     return np.array([an, bn])
 
 def mie_abcd(m: complex, x: float) -> np.ndarray:
-    nmax = np.int(np.round(2 + x + 4 * x**(1/3)))
+    nmax = int(np.round(2 + x + 4 * x**(1/3)))
     n = np.arange(1, nmax + 1).astype(int)
     nu = n + 0.5
     z = m * x
@@ -75,7 +75,7 @@ def mie(m: complex, x: float) -> np.ndarray:
     elif np.isclose(x, 0):
         return np.array([m.real, m.imag, 0, 0, 0, 0, 0, 0, 1.5])
     elif x > 0:
-        nmax = np.int(np.round(2 + x + 4 * x**(1/3)))
+        nmax = int(np.round(2 + x + 4 * x**(1/3)))
         n = np.arange(1, nmax + 1)
         an, bn, _, _ = mie_abcd(m, x)
         tmp = np.zeros((4, nmax))
@@ -119,7 +119,7 @@ def mie_pt(μ: float, nmax: int) -> np.ndarray:
     return np.array([π[1:], τ[1:]])
 
 def mie_s12(m: complex, x: float, u: float) -> np.ndarray:
-    nmax = np.int(np.round(2 + x + 4 * x**(1/3)))
+    nmax = int(np.round(2 + x + 4 * x**(1/3)))
     abcd = mie_abcd(m, x)
     an = abcd[0, :]
     bn = abcd[1, :]
@@ -239,7 +239,7 @@ def miecoated_ab2(m1: complex, m2: complex, x: float, y: float) -> np.ndarray:
         raise ValueError('x > y, "inner" sphere larger than "outer"')
 
     m = m2 / m1
-    nmax = np.int(np.round(2 + y + 4 * y**(1/3)))
+    nmax = int(np.round(2 + y + 4 * y**(1/3)))
     n = np.arange(1, nmax + 1).astype(int)
     nu = n + 0.5
     u = m1 * x
@@ -309,7 +309,7 @@ def miecoated_ab3(m1: complex, m2: complex, x: float, y: float) -> np.ndarray:
         raise ValueError('x > y, "inner" sphere larger than "outer"')
 
     m = m2 / m1
-    nmax = np.int(np.round(2 + y + 4 * y**(1/3)))
+    nmax = int(np.round(2 + y + 4 * y**(1/3)))
     n = np.arange(1, nmax + 1).astype(int)
     nu = n + 0.5
     u = m1 * x
@@ -378,7 +378,7 @@ def miecoated(m1: complex, m2: complex, x: float, y: float, opt: int = 1) -> np.
     elif m1 == m2:
         return mie(m1, y)
     elif x > 0:
-        nmax = np.int(np.round(2 + y + 4 * y**(1/3)))
+        nmax = int(np.round(2 + y + 4 * y**(1/3)))
         n1 = nmax - 1
         n = np.arange(1, nmax + 1)
         cn = 2 * n + 1
@@ -423,7 +423,7 @@ def miecoated(m1: complex, m2: complex, x: float, y: float, opt: int = 1) -> np.
     return np.array([qext, qsca, qabs, qb, asy, qratio])
 
 def miecoated_S12(m1, m2, x, y, u):
-    nmax = np.int(np.round(2 + y + 4 * y**(1/3)))
+    nmax = int(np.round(2 + y + 4 * y**(1/3)))
     ab = miecoated_ab1(m1, m2, x, y)
     an = ab[0, :]
     bn = ab[1, :]
