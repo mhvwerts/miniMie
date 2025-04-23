@@ -52,7 +52,7 @@ class MieTest(unittest.TestCase):
         self.assertTrue(np.isclose(result, expected, atol=5E-4).all())
 
     def test_mie_abcd(self):
-        '''Tests mie_abcd against MATLAB etermined values.'''
+        '''Tests mie_abcd against MATLAB determined values.'''
         m = 2 + 1j
         x = 5
         result = mie.mie_abcd(m, x)
