@@ -1,18 +1,23 @@
 """
-A port of Mätzler's 2002 Mie codes to Python
-by Chip Legett, 2019
-
-https://github.com/clegett/mie
+Unit testing of miniMie
 
 
-Unit testing of the main library
+(1)
+Testing of the miniMie.clegett_mie functions
+by Chip Legett, 2019.
+https://github.com/clegett
 
-Imported into the miniMie project on 2025-04-23,
-and renamed from 'mie_test.py' to 'clegett_mie_test.py'
+Imported into the miniMie project on 2025-04-23
+
+Modifications by M. H. V. Werts
+
+
+(2)
+TODO: extend testing to other miniMie functionality
 """
 
 import unittest
-import clegett_mie as mie
+import miniMie.clegett_mie as mie
 import numpy as np
 
 class MieTest(unittest.TestCase):
