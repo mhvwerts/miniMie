@@ -286,12 +286,16 @@ def get_ncmplx_vector(wvln_nm, mat, MFPradius_nm = None):
 
 
 
-def Mie_spectrum(wvln_nm, d_nm, mat="gold", n_medium=1.33, mfp=True):
+def Mie_spectrum(wvln_nm, d_nm, mat="gold", n_medium=1.33, mfp=True,
+                 MieFun = Mie):
     """generate extinction and scattering spectra 
     for a sphere of diameter d_nm in medium with refractive index n_medium
     sampled on the wavelengths specified in wvln_nm
     
     output: 2-tuple of numpy vectors (extinction and scattering)
+    
+    The kwarg `MieFun` enables to supply an external Mie calculation function,
+    e.g. from another Mie library.
     """ 
     
     r_sphere=(d_nm*1e-9)/2 # allows use of both SI unit-based values
@@ -313,7 +317,7 @@ def Mie_spectrum(wvln_nm, d_nm, mat="gold", n_medium=1.33, mfp=True):
     for idx in range(Npts):
         xco = (2*pi*n_medium*r_sphere)/wvln[idx]
         m = ncmplx_wvln[idx]/n_medium # use bulk dielectric function
-        resulttuple = Mie(m, xco)
+        resulttuple = MieFun(m, xco)
         Qext[idx] = resulttuple[3]
         Qsca[idx] = resulttuple[4]
         # not used:

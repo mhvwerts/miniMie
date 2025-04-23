@@ -20,7 +20,7 @@ import matplotlib.pyplot as plt
 
 from miniMie import Mie_spectrum
 
-d_nm = 90.
+d_nm = 60.
 wavelens =	np.linspace(380, 1000, 500)
 Qext,Qsca = Mie_spectrum(wavelens,
                          d_nm, mat='gold', mfp=False,
