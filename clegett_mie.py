@@ -1,3 +1,16 @@
+"""
+A port of Mätzler's 2002 Mie codes to Python
+by Chip Legett, 2019
+
+https://github.com/clegett/mie
+
+
+Main library
+
+Imported into the miniMie project on 2025-04-23,
+and renamed from 'mie.py' to 'clegett_mie.py'
+"""
+
 import numpy as np
 from scipy.special import jv, yv
 import warnings

@@ -1,5 +1,18 @@
+"""
+A port of Mätzler's 2002 Mie codes to Python
+by Chip Legett, 2019
+
+https://github.com/clegett/mie
+
+
+Unit testing of the main library
+
+Imported into the miniMie project on 2025-04-23,
+and renamed from 'mie_test.py' to 'clegett_mie_test.py'
+"""
+
 import unittest
-import mie
+import clegett_mie as mie
 import numpy as np
 
 class MieTest(unittest.TestCase):
