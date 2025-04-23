@@ -3,7 +3,7 @@
 Mie calculation routines:
 output Qext and Qsca for input vector of wavelengths
 
-M. H. V. Werts, CNRS, ENS Rennes, France.
+M. H. V. Werts, CNRS, Université d'Angers, France.
 
 Read the license text at the end of this file before using this software.
 
@@ -54,6 +54,7 @@ from scipy import interpolate
 
 
 # definition of Mie routines Mie_abcd and Mie
+
 def Mie_abcd(m, x, nmax):
     """based on the MATLAB code by C. Maetzler, 2002
     Ref.: (Maetzler 2002)
@@ -81,7 +82,8 @@ def Mie_abcd(m, x, nmax):
     dn = m*(bx*ahx - hx*ax)/(m2*bz*ahx - hx*az)
     return (an,bn,cn,dn)
 
-    
+
+
 def Mie(m, x):
     """The Mie routine adapted from Maetzler MATLAB code (Maetzler 2002).
     It calculates extinction, scattering and absorption cross sections, as well as
@@ -129,7 +131,12 @@ def Mie(m, x):
     # Qb (backscatter), Qratio
   
     # return results as a tuple
-    return (m.real, m.imag, x, Qext, Qsca, Qabs, asy)
+    # follow the same format as clegett_mie.mie()
+    # Qb and Qratio are not calculated by miniMie, set to NaN
+    Qb = np.nan
+    Qratio = np.nan
+    return (m.real, m.imag, x, Qext, Qsca, Qabs, Qb, asy, Qratio)
+
 
 
 def ncmplx_mfpcorr(ncmplx_bulk, radius, waveln, FV, OMP, OM0):
@@ -183,6 +190,7 @@ def ncmplx_mfpcorr(ncmplx_bulk, radius, waveln, FV, OMP, OM0):
     # reconstruct complex index   
     ncmplx_corr = complex(1,0) * rnr + complex(0,1) * rkr
     return ncmplx_corr
+
 
 
 def get_ncmplx_vector(wvln_nm, mat, MFPradius_nm = None):
@@ -278,12 +286,16 @@ def get_ncmplx_vector(wvln_nm, mat, MFPradius_nm = None):
 
 
 
-def Mie_spectrum(wvln_nm, d_nm, mat="gold", n_medium=1.33, mfp=True):
+def Mie_spectrum(wvln_nm, d_nm, mat="gold", n_medium=1.33, mfp=True,
+                 MieFun = Mie):
     """generate extinction and scattering spectra 
     for a sphere of diameter d_nm in medium with refractive index n_medium
     sampled on the wavelengths specified in wvln_nm
     
     output: 2-tuple of numpy vectors (extinction and scattering)
+    
+    The kwarg `MieFun` enables to supply an external Mie calculation function,
+    e.g. from another Mie library.
     """ 
     
     r_sphere=(d_nm*1e-9)/2 # allows use of both SI unit-based values
@@ -299,17 +311,19 @@ def Mie_spectrum(wvln_nm, d_nm, mat="gold", n_medium=1.33, mfp=True):
     Npts = len(wvln)
     Qext = zeros(Npts)
     Qsca = zeros(Npts)
-    Qabs = zeros(Npts)
-    asy = zeros(Npts)
+    # not used:
+    # Qabs = zeros(Npts)
+    # asy = zeros(Npts)
     for idx in range(Npts):
         xco = (2*pi*n_medium*r_sphere)/wvln[idx]
         m = ncmplx_wvln[idx]/n_medium # use bulk dielectric function
-        resulttuple = Mie(m, xco)
+        resulttuple = MieFun(m, xco)
         Qext[idx] = resulttuple[3]
         Qsca[idx] = resulttuple[4]
-        Qabs[idx] = resulttuple[5]
-        asy[idx]  = resulttuple[6]
-    return (Qext,Qsca)
+        # not used:
+        # Qabs[idx] = resulttuple[5]
+        # asy[idx]  = resulttuple[7]
+    return (Qext, Qsca)
     
 
 
@@ -343,9 +357,9 @@ if __name__ == "__main__":
 
 
 #
-#Copyright M. H. V. Werts, 2013-2023
+#Copyright M. H. V. Werts, 2013-2025
 #
-#martinus point werts à ens-rennes point fr
+#martinus point werts à univ-angers point fr
 #
 #
 #This software is a computer program whose purpose is to calculate 
@@ -379,11 +393,4 @@ if __name__ == "__main__":
 #knowledge of the CeCILL license and that you accept its terms.
 #
 #
-
-    
-    
-
-
-
-
 
