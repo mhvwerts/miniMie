@@ -129,7 +129,11 @@ def Mie(m, x):
     # Qb (backscatter), Qratio
   
     # return results as a tuple
-    return (m.real, m.imag, x, Qext, Qsca, Qabs, asy)
+    # follow the same format as clegett_mie.mie()
+    # Qb and Qratio are not calculated by miniMie, set to NaN
+    Qb = np.nan
+    Qratio = np.nan
+    return (m.real, m.imag, x, Qext, Qsca, Qabs, Qb, asy, Qratio)
 
 
 def ncmplx_mfpcorr(ncmplx_bulk, radius, waveln, FV, OMP, OM0):
@@ -299,17 +303,19 @@ def Mie_spectrum(wvln_nm, d_nm, mat="gold", n_medium=1.33, mfp=True):
     Npts = len(wvln)
     Qext = zeros(Npts)
     Qsca = zeros(Npts)
-    Qabs = zeros(Npts)
-    asy = zeros(Npts)
+    # not used:
+    # Qabs = zeros(Npts)
+    # asy = zeros(Npts)
     for idx in range(Npts):
         xco = (2*pi*n_medium*r_sphere)/wvln[idx]
         m = ncmplx_wvln[idx]/n_medium # use bulk dielectric function
         resulttuple = Mie(m, xco)
         Qext[idx] = resulttuple[3]
         Qsca[idx] = resulttuple[4]
-        Qabs[idx] = resulttuple[5]
-        asy[idx]  = resulttuple[6]
-    return (Qext,Qsca)
+        # not used:
+        # Qabs[idx] = resulttuple[5]
+        # asy[idx]  = resulttuple[7]
+    return (Qext, Qsca)
     
 
 
