@@ -13,7 +13,7 @@ The extinction cross section calculated by `miniMie` can be readily converted in
 
 This implementation is distributed under the CeCILL license (a GNU GPL-compatible license). See: [https://cecill.info/index.en.html](https://cecill.info/index.en.html)
 
-The basic code for doing simple spectral Mie calculations functions correctly. Furthermore, we have included the functions of the [`mie` library](https://github.com/clegett/mie), which is a more recent and complete Python port of the Mätzler MATLAB code by [C. Legett](https://github.com/clegett), giving identical results for the demo spectrum calculations.
+The basic code for doing simple spectral Mie calculations functions correctly. Furthermore, we have included the functions of the [`mie`](https://github.com/clegett/mie) library by [C. Legett](https://github.com/clegett), which is a more recent and complete Python port of the Mätzler MATLAB code. In the demo spectrum calculations, it yields results identical to the original miniMie.
 
 
 ## Example notebooks
