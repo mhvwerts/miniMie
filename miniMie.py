@@ -3,7 +3,7 @@
 Mie calculation routines:
 output Qext and Qsca for input vector of wavelengths
 
-M. H. V. Werts, CNRS, ENS Rennes, France.
+M. H. V. Werts, CNRS, Université d'Angers, France.
 
 Read the license text at the end of this file before using this software.
 
@@ -54,6 +54,7 @@ from scipy import interpolate
 
 
 # definition of Mie routines Mie_abcd and Mie
+
 def Mie_abcd(m, x, nmax):
     """based on the MATLAB code by C. Maetzler, 2002
     Ref.: (Maetzler 2002)
@@ -81,7 +82,8 @@ def Mie_abcd(m, x, nmax):
     dn = m*(bx*ahx - hx*ax)/(m2*bz*ahx - hx*az)
     return (an,bn,cn,dn)
 
-    
+
+
 def Mie(m, x):
     """The Mie routine adapted from Maetzler MATLAB code (Maetzler 2002).
     It calculates extinction, scattering and absorption cross sections, as well as
@@ -136,6 +138,7 @@ def Mie(m, x):
     return (m.real, m.imag, x, Qext, Qsca, Qabs, Qb, asy, Qratio)
 
 
+
 def ncmplx_mfpcorr(ncmplx_bulk, radius, waveln, FV, OMP, OM0):
     """Mean free path correction
     
@@ -187,6 +190,7 @@ def ncmplx_mfpcorr(ncmplx_bulk, radius, waveln, FV, OMP, OM0):
     # reconstruct complex index   
     ncmplx_corr = complex(1,0) * rnr + complex(0,1) * rkr
     return ncmplx_corr
+
 
 
 def get_ncmplx_vector(wvln_nm, mat, MFPradius_nm = None):
@@ -349,9 +353,9 @@ if __name__ == "__main__":
 
 
 #
-#Copyright M. H. V. Werts, 2013-2023
+#Copyright M. H. V. Werts, 2013-2025
 #
-#martinus point werts à ens-rennes point fr
+#martinus point werts à univ-angers point fr
 #
 #
 #This software is a computer program whose purpose is to calculate 
@@ -385,11 +389,4 @@ if __name__ == "__main__":
 #knowledge of the CeCILL license and that you accept its terms.
 #
 #
-
-    
-    
-
-
-
-
 
