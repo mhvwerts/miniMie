@@ -9,6 +9,8 @@ Main library
 
 Imported into the miniMie project on 2025-04-23,
 and renamed from 'mie.py' to 'clegett_mie.py'
+
+Minor modifications by M. H. V. Werts, 2025
 """
 
 import numpy as np
@@ -66,10 +68,10 @@ def mie_abcd(m: complex, x: float) -> np.ndarray:
     return np.array([an, bn, cn, dn])
 
 def mie(m: complex, x: float) -> np.ndarray:
-    if m.real < 1:
-        raise ValueError('invalid m. m.real must be greater than 1')
-    elif m.imag < 0:
-        raise ValueError('invalid m. m.imag must be greater than 0')
+    # if m.real < 1:
+    #     raise ValueError('invalid m. m.real must be greater than 1')
+    # elif m.imag < 0:
+    #     raise ValueError('invalid m. m.imag must be greater than 0')
     if x < 0:
         raise ValueError('x must be >= 0')
     elif np.isclose(x, 0):
