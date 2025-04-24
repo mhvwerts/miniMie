@@ -4,7 +4,7 @@
 
 `miniMie` is a small scientific Python module for calculating optical cross sections (extinction, scattering, absorption) of spherical (nano)particles in a medium using Mie theory. It depends on `numpy` and `scipy`. For plotting, `matplotlib` is needed. 
 
-The module is essentially the script that we used and published in:
+The module finds its origins in the script that we used and published in:
 J. R. G. Navarro and M. H. V. Werts, "Resonant light scattering spectroscopy of gold, silver and gold-silver alloy nanoparticles and optical detection in microfluidic channels", [*Analyst* **2013**, *138*, 583-592](https://doi.org/10.1039/c2an36135c).
 
 The Mie calculation code is based on MATLAB code from the [report by C. Mätzler](https://boris.unibe.ch/146551/1/201-1.pdf). Included in `miniMie` are the dielectric functions of gold and silver from Johnson & Christy, [*Phys. Rev. B* **1972**, *6*, 4370](https://doi.org/10.1103/PhysRevB.6.4370), with the possibility of applying a mean-free path correction as described by Haiss et al, [*Anal. Chem* **2007**, *79*, 4215](https://doi.org/10.1021/ac0702084).
