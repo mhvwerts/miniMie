@@ -78,8 +78,8 @@ def Mie_spectrum(wvln_nm, d_nm, material=Material(1.5), n_medium=1.33):
 
     """
     
-    r_sphere=(d_nm*1e-9)/2 # allows use of both SI unit-based values
-    wvln = wvln_nm*1e-9   # and simple floats (already divided by nm for example)
+    r_sphere=(d_nm*1e-9)/2
+    wvln = wvln_nm*1e-9
 
     # get dielectric function
     ncmplx_wvln = material.get_ncmplx_vector(wvln_nm)
@@ -93,7 +93,7 @@ def Mie_spectrum(wvln_nm, d_nm, material=Material(1.5), n_medium=1.33):
     # asy = zeros(Npts)
     for idx in range(Npts):
         xco = (2*pi*n_medium*r_sphere)/wvln[idx]
-        m = ncmplx_wvln[idx]/n_medium # use bulk dielectric function
+        m = ncmplx_wvln[idx]/n_medium
         resulttuple = mie(m, xco)
         Qext[idx] = resulttuple[3]
         Qsca[idx] = resulttuple[4]
