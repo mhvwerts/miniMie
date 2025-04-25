@@ -46,24 +46,37 @@ Read the license text at the end of this file before using this software.
 #TODO ADD BENCHMARKING RESULTS in particular for gold, silver particles
 
 import numpy as np
-from numpy import array, arange, zeros, concatenate
-from numpy import sqrt, sin, cos, pi
-from scipy import special
-from scipy import interpolate
+from numpy import pi, cos
 
 from .clegett_mie import mie
+from .clegett_mie import mie_s12
 from .materials import Material
 
 
 
-
 def Mie_spectrum(wvln_nm, d_nm, material=Material(1.5), n_medium=1.33):
-    """generate extinction and scattering spectra 
-    for a sphere of diameter d_nm in medium with refractive index n_medium
-    sampled on the wavelengths specified in wvln_nm
-    
-    output: 2-tuple of numpy vectors (extinction and scattering)
-    """ 
+    """
+    Generate extinction and scattering spectra using Mie theory
+
+    Parameters
+    ----------
+    wvln_nm : np.ndarray(dtype=float)
+        Vector of desired wavelengths [nm].
+    d_nm : float
+        Nanosphere diameter [nm].
+    material : instance of Material, optional
+        For evaluation of dielectric function. The default is Material(1.5).
+    n_medium : float, optional
+        Refractive index of medium. The default is 1.33.
+
+    Returns
+    -------
+    Qext : np.ndarray(dtype=float)
+        Vector of extinction efficiencies Q_ext
+    Qsca : np.ndarray(dtype=float)
+        Vector of scattering efficiencies Q_sca
+
+    """
     
     r_sphere=(d_nm*1e-9)/2 # allows use of both SI unit-based values
     wvln = wvln_nm*1e-9   # and simple floats (already divided by nm for example)
@@ -73,8 +86,8 @@ def Mie_spectrum(wvln_nm, d_nm, material=Material(1.5), n_medium=1.33):
     
     # CALCULATION of spectra
     Npts = len(wvln)
-    Qext = zeros(Npts)
-    Qsca = zeros(Npts)
+    Qext = np.zeros(Npts)
+    Qsca = np.zeros(Npts)
     # not used:
     # Qabs = zeros(Npts)
     # asy = zeros(Npts)
@@ -89,6 +102,59 @@ def Mie_spectrum(wvln_nm, d_nm, material=Material(1.5), n_medium=1.33):
         # asy[idx]  = resulttuple[7]
     return (Qext, Qsca)
     
+
+
+def Mie_tetascan(wvln_nm, d_nm, material=Material(1.5), n_medium=1.33,
+                 Npts = 400):
+    """
+    Computation of Mie Power Scattering from 0° to 180°
+
+    Parameters
+    ----------
+    wvln_nm : float
+        Vacuum wavelength of incident light.
+    d_nm : float
+        Nanosphere diameter [nm].
+    material : instance of Material, optional
+        For evaluation of dielectric function. The default is Material(1.5).
+    n_medium : float, optional
+        Refractive index of medium. The default is 1.33.
+    Npts : int, optional
+        Number of points to be evaluated. The default is 400.
+
+    Returns
+    -------
+    teta : np.ndarray(dtype=float)
+        Scattering angle (in radians).
+    SL : np.ndarray(dtype=float)
+        Scattered intensity, parallel polarization.
+    SR : np.ndarray(dtype=float)
+        Scattered intensity, perpendicular polarization.
+    SU : np.ndarray(dtype=float)
+        Scattered intensity, unpolarized, 0.5*(SL+SR).
+
+    """
+    r_sphere=(d_nm*1e-9)/2 
+    wvln = wvln_nm*1e-9   
+
+    # get dielectric function
+    ncmplx = material.get_ncmplx_vector(np.array([wvln_nm]))[0]
+    
+    x = (2*pi*n_medium*r_sphere)/wvln
+    m = ncmplx/n_medium
+    
+    teta = np.linspace(0, pi, Npts)
+    SL = np.zeros_like(teta)
+    SR = np.zeros_like(teta)
+    for j, tetaval in enumerate(teta):
+        u = cos(tetaval)
+        S1, S2 = mie_s12(m, x, u)
+        SL[j] = (S1*S1.conj()).real
+        SR[j] = (S2*S2.conj()).real
+    SU = 0.5*(SL+SR)
+    
+    return (teta, SL, SR, SU)
+
 
 
 

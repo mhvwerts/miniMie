@@ -36,7 +36,7 @@ class Material:
     
 
 
-class JC_gold:
+class JC_gold(Material):
     """Gold as reported by Johnson & Christy (1972)
     
        An optional mean free-path correction can be applied as described by
