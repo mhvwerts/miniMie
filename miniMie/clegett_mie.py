@@ -11,6 +11,16 @@ Imported into the miniMie project on 2025-04-23,
 and renamed from 'mie.py' to 'clegett_mie.py'
 
 Minor modifications by M. H. V. Werts, 2025
+
+
+
+This Python port closely follows the original MATLAB code, which is documented 
+in the following document (Mätzler 2002):
+ 
+C. Mätzler, "MATLAB Functions for Mie Scattering and Absorption, Version 2", 
+Research Report 2002-11, Institut für Angewandte Physik, 
+Universität Bern, Switzerland, 2002
+https://doi.org/10.7892/boris.146550
 """
 
 import numpy as np
