@@ -2,12 +2,12 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7657794.svg)](https://doi.org/10.5281/zenodo.7657794)
 
-miniMie is a small scientific Python module for calculating optical cross sections (extinction, scattering, absorption) of spherical (nano)particles in a medium using Mie theory. It depends on `numpy` and `scipy`. For plotting, `matplotlib` is needed. 
+miniMie is a small scientific Python library for calculating optical cross sections (extinction, scattering, absorption) of spherical (nano)particles in a medium using Mie theory. It depends on `numpy` and `scipy`. For plotting, `matplotlib` is needed. 
 
-The module finds its origins in the script that we used and published in:
+The library finds its origins in the script that we used and published in:
 J. R. G. Navarro and M. H. V. Werts, "Resonant light scattering spectroscopy of gold, silver and gold-silver alloy nanoparticles and optical detection in microfluidic channels", [*Analyst* **2013**, *138*, 583-592](https://doi.org/10.1039/c2an36135c).
 
-The Mie calculation code is based on MATLAB code from the [report by C. Mätzler](https://doi.org/10.7892/boris.146550) through the [`mie`](https://github.com/clegett/mie) library by [C. Legett](https://github.com/clegett) which has been integrated into the miniMie code base. Also included in `miniMie` are the dielectric functions of gold and silver from Johnson & Christy, [*Phys. Rev. B* **1972**, *6*, 4370](https://doi.org/10.1103/PhysRevB.6.4370), with the possibility of applying a mean-free path correction as described by Haiss et al, [*Anal. Chem* **2007**, *79*, 4215](https://doi.org/10.1021/ac0702084).
+The Mie calculation code is based on MATLAB code from the [report by C. Mätzler](https://doi.org/10.7892/boris.146550) through the [`mie`](https://github.com/clegett/mie) library by [C. Legett](https://github.com/clegett), which has been integrated and adapted into the miniMie code base. Also included in `miniMie` are the dielectric functions of gold and silver from Johnson & Christy, [*Phys. Rev. B* **1972**, *6*, 4370](https://doi.org/10.1103/PhysRevB.6.4370), with the possibility of applying a mean-free path correction as described by Haiss et al, [*Anal. Chem* **2007**, *79*, 4215](https://doi.org/10.1021/ac0702084).
 
 The extinction cross section calculated by `miniMie` can be readily converted into the molar extinction coefficient (see the example Jupyter Notebook). From the absorption and extinction cross sections, one may deduce the photothermal efficiency.
 
@@ -27,7 +27,7 @@ This implementation is distributed under the CeCILL license (a GNU GPL-compatibl
 * Use more functionalities from the `miniMie.clegett_mie` submodule.
 
 
-## Links to other programs of interest
+## Links
 
 * [`mie`](https://github.com/clegett/mie), a recent port of the Mätzler MATLAB code to Python, without dielectric functions for gold and silver.
 * [`Mie-Simulation-Maetzler-MATLAB-code`](https://github.com/garatbeo/Mie-Simulation-Maetzler-MATLAB-code) contains a copy of Mätzler's original MATLAB code, together with the accompanying report.
