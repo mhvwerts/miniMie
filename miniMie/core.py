@@ -103,7 +103,7 @@ def Mie_spectrum(wvln_nm, d_nm, material=Material(1.5), n_medium=1.33):
 
 
 def Mie_tetascan(wvln_nm, d_nm, material=Material(1.5), n_medium=1.33,
-                 Npts = 400):
+                 Npts = 400, normalize = False):
     """
     Computation of Mie Power Scattering from 0° to 180°
 
@@ -119,6 +119,9 @@ def Mie_tetascan(wvln_nm, d_nm, material=Material(1.5), n_medium=1.33,
         Refractive index of medium. The default is 1.33.
     Npts : int, optional
         Number of points to be evaluated. The default is 400.
+    normalize : boolean, optional
+        If True, normalize the curves such that the full 0...2*pi integral 
+        of the unpolarized intensity equals 1. Default is no normalization.
 
     Returns
     -------
@@ -144,13 +147,18 @@ def Mie_tetascan(wvln_nm, d_nm, material=Material(1.5), n_medium=1.33,
     teta = np.linspace(0, pi, Npts)
     SL = np.zeros_like(teta)
     SR = np.zeros_like(teta)
-    for j, tetaval in enumerate(teta):
-        u = cos(tetaval)
+    for j, u in enumerate(cos(teta)):
         S1, S2 = mie_s12(m, x, u)
         SL[j] = (S1*S1.conj()).real
         SR[j] = (S2*S2.conj()).real
-    SU = 0.5*(SL+SR)
-    
+    SU = (SL+SR)/2
+    if normalize:
+        # Integral of unpolarized intensity from 0...pi should equal 0.5
+        # (half circle)
+        SUintg = 2*np.trapezoid(SU, teta)
+        SL /= SUintg
+        SR /= SUintg
+        SU /= SUintg
     return (teta, SL, SR, SU)
 
 

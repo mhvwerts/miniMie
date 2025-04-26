@@ -301,8 +301,8 @@ class MieTest(unittest.TestCase):
 
         self.assertTrue(np.isclose(result, expected, atol=1E-11).all())
 
-    def test_miecoated_S12(self):
-        '''Test miecoated_S12 against MATLAB outputs.'''
+    def test_miecoated_s12(self):
+        '''Test miecoated_s12 against MATLAB outputs.'''
 
         m1 = 1+2j
         m2 = 1.5+2.5j
@@ -310,7 +310,7 @@ class MieTest(unittest.TestCase):
         y = 2.5
         u = 0.75
 
-        result = mie.miecoated_S12(m1, m2, x, y, u)
+        result = mie.miecoated_s12(m1, m2, x, y, u)
         expected = np.array([3.064118537580-0.772416667613j,
             1.435813972397+1.203900827712j])
 
