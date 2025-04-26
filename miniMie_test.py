@@ -21,10 +21,41 @@ TODO:
 """
 
 import unittest
-import miniMie.clegett_mie as mie
 import numpy as np
+import miniMie.clegett_mie as mie
+from numpy import cos, pi
+from miniMie import Mie_tetascan, Material
 
 class MieTest(unittest.TestCase):
+    def test_Rayleigh_scatterer(self):
+        """Calculate the angular scattering by a very small silica particle 
+        using the Mie code and compare the unpolarized angular scattering to
+        the (1+cos^2(theta)) from Rayleigh scattering.
+        
+        This tests `Mie_tetascan`, `Material` and the underlying
+        `clegett_mie.mie_s12`
+        """
+        # define a 1 nm diameter (Ludox-type) silica sphere
+        # incoming light with vac. wavelength 500 nm
+        d_nm = 1.
+        n_mat = 1.47
+        wvln_nm = 500.
+        
+        # calculate normalized angular scattering using Mie theory
+        teta, Ipar, Iperp, Iunpol = Mie_tetascan(wvln_nm, d_nm,
+                                                 material = Material(n_mat),
+                                                 n_medium = 1.33,
+                                                 normalize = True)
+        
+        # calculate normalized angular scattering using Rayleigh theory
+        K = 1/(3*pi) # normalize Rayleigh to integral = 0.5
+        Icos2 = K*(1+cos(teta)**2)
+        
+        # calculate the relative error
+        relerr = (Iunpol/Icos2) - 1
+        
+        self.assertTrue(np.all(abs(relerr) < 1e-4))
+        
     def test_mie_matzler(self):
         '''Takes the values for the mie function from the 2002 documentation and
         checks against the provided output.'''
