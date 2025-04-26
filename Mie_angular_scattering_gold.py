@@ -4,7 +4,7 @@ Angular distribution of unpolarized Mie scattering intensity
 for a series of gold nanoparticle diameters
 
 
-Reproduces the left panel of Figure 1 of
+Reproduces the left panel of Figure 1 in
 
 Shortell, M. P.; Hewins, R. A.; Fernando, J. F. S.; Walden, S. L.; 
 Waclawik, E. R.; Jaatinen, E. A., "Multi-Angle Fluorometer Technique for the 
