@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Mie calculation routines:
-output Qext and Qsca for input vector of wavelengths
+High-level Mie calculation routines
+
 
 M. H. V. Werts, CNRS, Université d'Angers, France.
 
@@ -42,8 +42,6 @@ Read the license text at the end of this file before using this software.
 
 """
 
-
-#TODO ADD BENCHMARKING RESULTS in particular for gold, silver particles
 
 import numpy as np
 from numpy import pi, cos

@@ -430,7 +430,7 @@ def miecoated(m1: complex, m2: complex, x: float, y: float, opt: int = 1) -> np.
     qratio = qb / qsca
     return np.array([qext, qsca, qabs, qb, asy, qratio])
 
-def miecoated_S12(m1, m2, x, y, u):
+def miecoated_s12(m1, m2, x, y, u):
     nmax = int(np.round(2 + y + 4 * y**(1/3)))
     ab = miecoated_ab1(m1, m2, x, y)
     an = ab[0, :]

@@ -13,7 +13,11 @@ Modifications by M. H. V. Werts
 
 
 (2)
-TODO: extend testing to other miniMie functionality
+TODO: 
+- extend testing to other miniMie functionality, in particular calculation
+  of gold and silver nanoparticles, so that correct evaluation of dielectric
+  function is taken into account
+
 """
 
 import unittest

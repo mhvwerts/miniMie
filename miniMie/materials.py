@@ -2,7 +2,9 @@
 """
 Classes describing the various optical dielectric functions of materials
 
-Part of miniMie by M. H. V. Werts
+by M. H. V. Werts
+
+Part of miniMie
 
 See 'core.py' for literature references
 """
