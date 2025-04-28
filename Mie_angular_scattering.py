@@ -26,8 +26,14 @@ d_nm = 150.
 
 teta, Ipar, Iperp, Iunpol = Mie_tetascan(wvln_nm, d_nm,
                                          material = JC_gold(),
-                                         n_medium=1.33,
+                                         n_medium = 1.33,
                                          normalize = True)
+
+mu = np.cos(teta)
+total_teta = 2 * np.pi * np.trapezoid(Iunpol*np.sin(teta), teta)
+total_mu = -2 * np.pi * np.trapezoid(Iunpol, mu) # minus because of inversed limits
+print('Full sphere integral: ', total_teta, total_mu )
+print()
 
 plt.figure(1)
 plt.clf()
@@ -55,8 +61,14 @@ teta, Ipar, Iperp, Iunpol = Mie_tetascan(wvln_nm, d_nm,
                                          n_medium=1.33,
                                          normalize = True)
 
-K = 1/(3*pi) # normalize Rayleigh to integral = 0.5
-Icos2 = K*(1+cos(teta)**2)
+mu = np.cos(teta)
+total_teta = 2 * np.pi * np.trapezoid(Iunpol*np.sin(teta), teta)
+total_mu = -2 * np.pi * np.trapezoid(Iunpol, mu) # minus because of inversed limits
+print('Full sphere integral: ', total_teta, total_mu )
+print()
+
+K1 = 16*pi/3 # normalize Rayleigh integral to unity for full sphere
+Icos2 = (1+cos(teta)**2)/K1
 
 plt.figure(2)
 plt.clf()
@@ -77,7 +89,9 @@ plt.legend()
 
 
 
-# Not normalized for comparison: the overall shape should not change
+
+
+# Unnormalized calculation for comparison: the overall shape should not change
 
 teta, Ipar, Iperp, Iunpol = Mie_tetascan(wvln_nm, d_nm,
                                          material = Material(1.47),

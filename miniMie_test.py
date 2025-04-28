@@ -34,6 +34,9 @@ class MieTest(unittest.TestCase):
         
         This tests `Mie_tetascan`, `Material` and the underlying
         `clegett_mie.mie_s12`
+        
+        Incidentally, it also checks if the normalization in `Mie_tetascan`
+        is carried out correctly.
         """
         # define a 1 nm diameter (Ludox-type) silica sphere
         # incoming light with vac. wavelength 500 nm
@@ -48,8 +51,8 @@ class MieTest(unittest.TestCase):
                                                  normalize = True)
         
         # calculate normalized angular scattering using Rayleigh theory
-        K = 1/(3*pi) # normalize Rayleigh to integral = 0.5
-        Icos2 = K*(1+cos(teta)**2)
+        K1 = 16*pi/3 # normalize Rayleigh integral to unity for full sphere
+        Icos2 = (1+cos(teta)**2)/K1
         
         # calculate the relative error
         relerr = (Iunpol/Icos2) - 1

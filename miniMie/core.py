@@ -145,20 +145,30 @@ def Mie_tetascan(wvln_nm, d_nm, material=Material(1.5), n_medium=1.33,
     m = ncmplx/n_medium
     
     teta = np.linspace(0, pi, Npts)
+    mu = cos(teta)
     SL = np.zeros_like(teta)
     SR = np.zeros_like(teta)
-    for j, u in enumerate(cos(teta)):
+    for j, u in enumerate(mu):
         S1, S2 = mie_s12(m, x, u)
         SL[j] = (S1*S1.conj()).real
         SR[j] = (S2*S2.conj()).real
     SU = (SL+SR)/2
     if normalize:
-        # Integral of unpolarized intensity from 0...pi should equal 0.5
-        # (half circle)
-        SUintg = 2*np.trapezoid(SU, teta)
+        # 
+        # Full-sphere integral of unpolarized intensity will equal 1
+        #
+        # This integral is calculated as:
+        #      `total = 2 * np.pi * np.trapezoid(intensity, mu)`
+        # https://miepython.readthedocs.io/en/stable/03a_normalization.html#Verifying-normalization
+        #
+        SUintg = -2*pi*np.trapezoid(SU, mu) # minus due to inverted intg limits
         SL /= SUintg
         SR /= SUintg
         SU /= SUintg
+        # 
+        # We could also normalize to 1 by dividing by 4*pi*x**2*Qsca,
+        # but this would require a separate, explicit calculation of Qsca
+        #
     return (teta, SL, SR, SU)
 
 
