@@ -9,14 +9,24 @@ J. R. G. Navarro and M. H. V. Werts, "Resonant light scattering spectroscopy of 
 
 The Mie calculation code is based on MATLAB code from the [report by C. Mätzler](https://doi.org/10.7892/boris.146550) through the [`mie`](https://github.com/clegett/mie) library by [C. Legett](https://github.com/clegett). The [`mie`](https://github.com/clegett/mie) library has been integrated and adapted into the miniMie code base. Also included in `miniMie` are the dielectric functions of gold and silver from Johnson & Christy, [*Phys. Rev. B* **1972**, *6*, 4370](https://doi.org/10.1103/PhysRevB.6.4370), with the possibility of applying a mean-free path correction as described by Haiss et al, [*Anal. Chem* **2007**, *79*, 4215](https://doi.org/10.1021/ac0702084).
 
-The extinction cross section calculated by `miniMie` can be readily converted into the molar extinction coefficient (see the example Jupyter Notebook). From the absorption and extinction cross sections, one may deduce the photothermal efficiency.
+The extinction cross section calculated by `miniMie` can be readily converted into the molar extinction coefficient (see the example Jupyter Notebook). From the absorption and extinction cross sections, one may deduce the photothermal efficiency. miniMie calculates extinction, scattering and absoprtion spectra via `Mie_spectrum()`. It also calculates the angular distribution of scattering intensity via `Mie_tetascan()`.
 
 This implementation is distributed under the CeCILL license (a GNU GPL-compatible license). See: [https://cecill.info/index.en.html](https://cecill.info/index.en.html)
 
 
-## Example notebooks
+
+## Examples
+
+### Jupyter Notebooks
 
 * [Calculation of molar extinction coefficients of nanospheres](https://github.com/mhvwerts/miniMie/blob/master/Example%20-%20Extinction%20coefficients%20of%20gold%20nanospheres.ipynb)
+
+
+### Scripts
+* [Calculate and plot extinction and scattering spectra of gold nanoparticles](https://github.com/mhvwerts/miniMie/blob/master/Mie_example_with_plot.py)
+* [Calculate and plot angular scattering by nanoparticles](https://github.com/mhvwerts/miniMie/blob/master/Mie_angular_scattering.py)
+* [Reproduce angular scattering calculation results for gold nanoparticles by Shortell et al. (Opt. Express 2016)](https://github.com/mhvwerts/miniMie/blob/master/Mie_angular_scattering_gold.py)
+
 
 
 ## To-do list
