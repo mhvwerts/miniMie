@@ -103,7 +103,7 @@ def Mie_spectrum(wvln_nm, d_nm, material=Material(1.5), n_medium=1.33):
 
 
 def Mie_tetascan(wvln_nm, d_nm, material=Material(1.5), n_medium=1.33,
-                 Npts = 400, normalize = False):
+                 Npts = 401, normalize = False):
     """
     Computation of Mie Power Scattering from 0° to 180°
 
@@ -118,9 +118,9 @@ def Mie_tetascan(wvln_nm, d_nm, material=Material(1.5), n_medium=1.33,
     n_medium : float, optional
         Refractive index of medium. The default is 1.33.
     Npts : int, optional
-        Number of points to be evaluated. The default is 400.
+        Number of points to be evaluated. The default is 401.
     normalize : boolean, optional
-        If True, normalize the curves such that the full 0...2*pi integral 
+        If True, normalize the curves such that the full sphere integral 
         of the unpolarized intensity equals 1. Default is no normalization.
 
     Returns
@@ -161,14 +161,26 @@ def Mie_tetascan(wvln_nm, d_nm, material=Material(1.5), n_medium=1.33,
         #      `total = 2 * np.pi * np.trapezoid(intensity, mu)`
         # https://miepython.readthedocs.io/en/stable/03a_normalization.html#Verifying-normalization
         #
-        SUintg = -2*pi*np.trapezoid(SU, mu) # minus due to inverted intg limits
-        SL /= SUintg
-        SR /= SUintg
-        SU /= SUintg
+        # SUintg = -2*pi*np.trapezoid(SU, mu) # minus due to inverted intg limits
+        # SL /= SUintg
+        # SR /= SUintg
+        # SU /= SUintg
         # 
-        # We could also normalize to 1 by dividing by 4*pi*x**2*Qsca,
-        # but this would require a separate, explicit calculation of Qsca
         #
+        # We can also normalize to 1 by dividing by pi*x**2*Qsca,
+        # This requires a separate, explicit calculation of Qsca, but is 
+        # more elegant.
+        #
+        # It seems that clegett_mie/Mätzler code uses a Wiscombe normalization
+        #
+        # https://miepython.readthedocs.io/en/stable/03a_normalization.html#Normalization-of-the-scattered-light
+        #
+        resulttuple = mie(m, x)
+        Qsca = resulttuple[4]
+        norm = pi*x**2*Qsca
+        SL /= norm
+        SR /= norm
+        SU /= norm
     return (teta, SL, SR, SU)
 
 
