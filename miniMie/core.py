@@ -76,28 +76,21 @@ def Mie_spectrum(wvln_nm, d_nm, material=Material(1.5), n_medium=1.33):
 
     """
     
-    r_sphere=(d_nm*1e-9)/2
-    wvln = wvln_nm*1e-9
+    r_sphere_nm = d_nm/2
 
     # get dielectric function
     ncmplx_wvln = material.get_ncmplx_vector(wvln_nm)
     
     # CALCULATION of spectra
-    Npts = len(wvln)
+    Npts = len(wvln_nm)
     Qext = np.zeros(Npts)
     Qsca = np.zeros(Npts)
-    # not used:
-    # Qabs = zeros(Npts)
-    # asy = zeros(Npts)
     for idx in range(Npts):
-        xco = (2*pi*n_medium*r_sphere)/wvln[idx]
+        xco = (2*pi*n_medium*r_sphere_nm)/wvln_nm[idx]
         m = ncmplx_wvln[idx]/n_medium
-        resulttuple = mie(m, xco)
-        Qext[idx] = resulttuple[3]
-        Qsca[idx] = resulttuple[4]
-        # not used:
-        # Qabs[idx] = resulttuple[5]
-        # asy[idx]  = resulttuple[7]
+        result = mie(m, xco)
+        Qext[idx] = result['Qext']
+        Qsca[idx] = result['Qsca']
     return (Qext, Qsca)
     
 
@@ -135,13 +128,12 @@ def Mie_tetascan(wvln_nm, d_nm, material=Material(1.5), n_medium=1.33,
         Scattered intensity, unpolarized, 0.5*(SL+SR).
 
     """
-    r_sphere=(d_nm*1e-9)/2 
-    wvln = wvln_nm*1e-9   
+    r_sphere_nm = d_nm/2 
 
     # get dielectric function
     ncmplx = material.get_ncmplx_vector(np.array([wvln_nm]))[0]
     
-    x = (2*pi*n_medium*r_sphere)/wvln
+    x = (2*pi*n_medium*r_sphere_nm)/wvln_nm
     m = ncmplx/n_medium
     
     teta = np.linspace(0, pi, Npts)
@@ -175,8 +167,8 @@ def Mie_tetascan(wvln_nm, d_nm, material=Material(1.5), n_medium=1.33,
         #
         # https://miepython.readthedocs.io/en/stable/03a_normalization.html#Normalization-of-the-scattered-light
         #
-        resulttuple = mie(m, x)
-        Qsca = resulttuple[4]
+        result = mie(m, x)
+        Qsca = result['Qsca']
         norm = pi*x**2*Qsca
         SL /= norm
         SR /= norm

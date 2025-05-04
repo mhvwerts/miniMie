@@ -26,7 +26,31 @@ import miniMie.clegett_mie as mie
 from numpy import cos, pi
 from miniMie import Mie_tetascan, Material
 
+
 class MieTest(unittest.TestCase):
+    def _dict2array(self, rdic):
+        """
+        Convert result dictionary from mie, miecoated to np.array
+
+        Parameters
+        ----------
+        rdic : dict
+            Result dictionary from mie, miecoated calculation.
+
+        Returns
+        -------
+        result : np.ndarray
+            Result in legacy array format for easy testing.
+
+        """
+        result = np.array([rdic['Qext'],
+                           rdic['Qsca'],
+                           rdic['Qabs'],
+                           rdic['Qb'],
+                           rdic['asy'],
+                           rdic['Qratio']])
+        return result
+        
     def test_Rayleigh_scatterer(self):
         """Calculate the angular scattering by a very small silica particle 
         using the Mie code and compare the unpolarized angular scattering to
@@ -64,8 +88,8 @@ class MieTest(unittest.TestCase):
         checks against the provided output.'''
         m = 5+0.4j
         x = 1
-        result = mie.mie(m, x)
-        expected = np.array([5, 0.4, 1, 1.9794, 0.8795, 1.0999, 1.1133, -0.0595,
+        result = self._dict2array(mie.mie(m, x))
+        expected = np.array([1.9794, 0.8795, 1.0999, 1.1133, -0.0595,
                             1.2664])
 
         self.assertTrue(np.isclose(result, expected, atol=5E-4).all())
@@ -74,7 +98,7 @@ class MieTest(unittest.TestCase):
         '''Tests that an x value of 70000 returns non-NaN's'''
         m = 2+0.01j
         x = 70000
-        result = mie.mie(m, x)
+        result = self._dict2array(mie.mie(m, x))
 
         self.assertFalse(np.isnan(result.any()))
 
@@ -288,7 +312,7 @@ class MieTest(unittest.TestCase):
         y = 2.5
         opt = 1
 
-        result = mie.miecoated(m1, m2, x, y, opt)
+        result = self._dict2array(mie.miecoated(m1, m2, x, y, opt))
         expected = np.array([3.182016828599, 2.025247626053, 1.156769202546,
             0.637637341412, 0.560757401303, 0.314844137185])
 
@@ -313,8 +337,7 @@ class MieTest(unittest.TestCase):
         x = 2
         y = 2.5
         opt = 2
-
-        result = mie.miecoated(m1, m2, x, y, opt)
+        result = self._dict2array(mie.miecoated(m1, m2, x, y, opt))
         expected = np.array([3.182016828600, 2.025247626053, 1.156769202546,
             0.637637341412, 0.560757401303, 0.314844137185])
 
@@ -329,7 +352,7 @@ class MieTest(unittest.TestCase):
         y = 2.5
         opt = 3
 
-        result = mie.miecoated(m1, m2, x, y, opt)
+        result = self._dict2array(mie.miecoated(m1, m2, x, y, opt))
         expected = np.array([3.182016828599, 2.025247626053, 1.156769202546,
             0.637637341412, 0.560757401303, 0.314844137185])
 

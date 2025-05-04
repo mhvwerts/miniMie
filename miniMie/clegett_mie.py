@@ -77,7 +77,7 @@ def mie_abcd(m: complex, x: float) -> np.ndarray:
     dn = m * (bx * ahx - hx * ax) / (m2 * bz * ahx - hx * az)
     return np.array([an, bn, cn, dn])
 
-def mie(m: complex, x: float) -> np.ndarray:
+def mie(m: complex, x: float) -> dict:
     if x < 0:
         raise ValueError('x must be >= 0')
     elif np.isclose(x, 0):
@@ -104,7 +104,13 @@ def mie(m: complex, x: float) -> np.ndarray:
             * (an.real * bn.real + an.imag * bn.imag))
         asy = 4 / x**2 * np.sum(asy1 + asy2) / qsca
         qratio = qb / qsca
-        return np.array([m.real, m.imag, x, qext, qsca, qabs, qb, asy, qratio])
+        # return np.array([m.real, m.imag, x, qext, qsca, qabs, qb, asy, qratio])
+        return {'Qext'  : qext,
+                'Qsca'  : qsca,
+                'Qabs'  : qabs,
+                'Qb'    : qb,
+                'asy'   : asy,
+                'Qratio': qratio}
 
 def mie_pt(μ: float, nmax: int) -> np.ndarray:
     if (1 < μ) or (-1 > μ):
@@ -315,7 +321,6 @@ def miecoated_ab3(m1: complex, m2: complex, x: float, y: float) -> np.ndarray:
         raise ValueError('x == y, size parameters cannot be the same size.')
     elif x > y:
         raise ValueError('x > y, "inner" sphere larger than "outer"')
-
     m = m2 / m1
     nmax = int(np.round(2 + y + 4 * y**(1/3)))
     n = np.arange(1, nmax + 1).astype(int)
@@ -360,10 +365,9 @@ def miecoated_ab3(m1: complex, m2: complex, x: float, y: float) -> np.ndarray:
     bb2 = pw - bbb * chw
     aa = (py * aa1 - m2 * ppy * aa2) / (gsy * aa1 - m2 * gspy * aa2)
     bb = (m2 * py * bb1 - ppy * bb2) / (m2 * gsy * bb1 - gspy * bb2)
-
     return np.array([aa, bb])
 
-def miecoated(m1: complex, m2: complex, x: float, y: float, opt: int = 1) -> np.ndarray:
+def miecoated(m1: complex, m2: complex, x: float, y: float, opt: int = 1) -> dict:
     if (m1 * x).imag > 30:
         warnings.warn('Im(m1*x) > 30. This could result in bad solutions. See '
             'B&H p. 485. Compare the output of miecoated_ab1, miecoated_ab2, '
@@ -428,7 +432,13 @@ def miecoated(m1: complex, m2: complex, x: float, y: float, opt: int = 1) -> np.
     asy2 = c2n * (anp * bnp + anpp * bnpp)
     asy = 4 / y2 * np.sum(asy1 + asy2) / qsca
     qratio = qb / qsca
-    return np.array([qext, qsca, qabs, qb, asy, qratio])
+    # return np.array([qext, qsca, qabs, qb, asy, qratio])
+    return {'Qext'  : qext,
+            'Qsca'  : qsca,
+            'Qabs'  : qabs,
+            'Qb'    : qb,
+            'asy'   : asy,
+            'Qratio': qratio}
 
 def miecoated_s12(m1, m2, x, y, u):
     nmax = int(np.round(2 + y + 4 * y**(1/3)))
