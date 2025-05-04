@@ -9,7 +9,7 @@ miniMie calculates extinction, scattering and absorption spectra via `Mie_spectr
 The library finds its origins in the script that we used and published in:
 J. R. G. Navarro and M. H. V. Werts, "Resonant light scattering spectroscopy of gold, silver and gold-silver alloy nanoparticles and optical detection in microfluidic channels", [*Analyst* **2013**, *138*, 583-592](https://doi.org/10.1039/c2an36135c).
 
-The Mie calculation code is based on MATLAB code from the [report by C. Mätzler](https://doi.org/10.7892/boris.146550) through the [`mie`](https://github.com/clegett/mie) library by [C. Legett](https://github.com/clegett). The [`mie`](https://github.com/clegett/mie) library has been integrated and adapted into the miniMie code base, as it gives results identical to our initial Python port. 
+The Mie calculation code is based on MATLAB code from the [report by C. Mätzler](https://doi.org/10.7892/boris.146550) through the [`mie`](https://github.com/clegett/mie) library by [C. Legett](https://github.com/clegett). The [`mie`](https://github.com/clegett/mie) library has been integrated and adapted into the miniMie code base, as it gives results identical to our initial Python port, while enabling additional calculations. 
 
 Also included in miniMie are the dielectric functions of gold and silver from Johnson & Christy, [*Phys. Rev. B* **1972**, *6*, 4370](https://doi.org/10.1103/PhysRevB.6.4370), with the possibility of applying a mean-free path correction as described by Haiss et al, [*Anal. Chem* **2007**, *79*, 4215](https://doi.org/10.1021/ac0702084). The dielectric function is interpolated to find the values at specific, user-defined wavelengths.
 
