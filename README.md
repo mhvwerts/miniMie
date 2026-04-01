@@ -36,8 +36,6 @@ This implementation is distributed under the CeCILL license (a GNU GPL-compatibl
 * Include further application examples, in particular as Jupyter Notebooks
 * Add additional benchmark calculations for testing purposes, in particular spectral properties relying on the included dielectric functions
 * Add more dielectric functions
-* Optionally, call the Mie calculation code from [`miepython`](https://github.com/scottprahl/miepython), which is not based on Bohren & Huffman, but on Wiscombe, and may be numerically superior in certain cases. Would require `miepython` as an optional dependency
-
 
 
 ## Links
