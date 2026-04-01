@@ -50,9 +50,16 @@ from .clegett_mie import mie
 from .clegett_mie import mie_s12
 from .materials import Material
 
+# optional miepython import
+try:
+    import miepython
+except ModuleNotFoundError:
+    miepython = None
 
 
-def Mie_spectrum(wvln_nm, d_nm, material=Material(1.5), n_medium=1.33):
+def Mie_spectrum(wvln_nm, d_nm, 
+                 material = Material(1.5), n_medium = 1.33,
+                 ext_engine = None):
     """
     Generate extinction and scattering spectra using Mie theory
 
@@ -66,6 +73,10 @@ def Mie_spectrum(wvln_nm, d_nm, material=Material(1.5), n_medium=1.33):
         For evaluation of dielectric function. The default is Material(1.5).
     n_medium : float, optional
         Refractive index of medium. The default is 1.33.
+    ext_engine : str, optional
+        Do calculation using an external engine. 
+        Currently the only option is 'miepython' 
+            https://github.com/scottprahl/miepython
 
     Returns
     -------
@@ -82,15 +93,28 @@ def Mie_spectrum(wvln_nm, d_nm, material=Material(1.5), n_medium=1.33):
     ncmplx_wvln = material.get_ncmplx_vector(wvln_nm)
     
     # CALCULATION of spectra
+    #
+    # Yes, we know, this partcan probably be refactored and optimized, with
+    # suitable vectorizations. The gain in performance will
+    # likely negligible in practice, yet the code may become more readable.
     Npts = len(wvln_nm)
     Qext = np.zeros(Npts)
     Qsca = np.zeros(Npts)
     for idx in range(Npts):
         xco = (2*pi*n_medium*r_sphere_nm)/wvln_nm[idx]
         m = ncmplx_wvln[idx]/n_medium
-        result = mie(m, xco)
-        Qext[idx] = result['Qext']
-        Qsca[idx] = result['Qsca']
+        if ext_engine is None:
+            result = mie(m, xco)
+            Qext[idx] = result['Qext']
+            Qsca[idx] = result['Qsca']
+        else:
+            if (ext_engine=='miepython') and (miepython is not None):
+                result = miepython.efficiencies_mx(m, xco)
+                Qext[idx] = result[0]
+                Qsca[idx] = result[1]
+            else:
+                raise ValueError(f'Engine from external module not available: {ext_engine}')
+
     return (Qext, Qsca)
     
 
