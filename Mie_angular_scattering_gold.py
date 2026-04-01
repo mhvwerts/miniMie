@@ -65,3 +65,4 @@ plt.ylabel('rel. deviation from Rayleigh (%)')
 plt.xlim(0, 180)
 plt.legend(frameon=False)
 
+plt.show()

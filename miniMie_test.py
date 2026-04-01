@@ -2,6 +2,19 @@
 Unit testing of miniMie
 
 
+
+Compatible with pytest:
+
+```
+pytest
+```
+
+```
+pytest -s
+```
+
+
+
 (1)
 Testing of the miniMie.clegett_mie functions
 by Chip Legett, 2019.
@@ -16,7 +29,8 @@ Modifications by M. H. V. Werts
 TODO: 
 - extend testing to other miniMie functionality, in particular calculation
   of gold and silver nanoparticles, so that correct evaluation of dielectric
-  function is taken into account
+  function is taken into account. The example scripts may be converted into
+  pytest tests
 
 """
 

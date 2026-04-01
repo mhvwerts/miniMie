@@ -111,4 +111,4 @@ plt.polar(-teta, Iunpol, 'g')
 plt.title(f'{d_nm:.0f}nm silica particles (not normalized)')
 plt.legend()
 
-
+plt.show()

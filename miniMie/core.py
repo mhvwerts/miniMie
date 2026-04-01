@@ -59,7 +59,7 @@ def Mie_spectrum(wvln_nm, d_nm, material=Material(1.5), n_medium=1.33):
     Parameters
     ----------
     wvln_nm : np.ndarray(dtype=float)
-        Vector of desired wavelengths [nm].
+        Vector of desired spectroscopic (vacuum) wavelengths [nm].
     d_nm : float
         Nanosphere diameter [nm].
     material : instance of Material, optional
@@ -103,7 +103,7 @@ def Mie_tetascan(wvln_nm, d_nm, material=Material(1.5), n_medium=1.33,
     Parameters
     ----------
     wvln_nm : float
-        Vacuum wavelength of incident light.
+        Vacuum (spectroscopic) wavelength of incident light.
     d_nm : float
         Nanosphere diameter [nm].
     material : instance of Material, optional

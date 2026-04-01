@@ -23,7 +23,6 @@ class Material:
     def __init__(self, ncmplx = 1.0):
         self.ncmplx = ncmplx
 
-
     def get_ncmplx_vector(self, wvln_nm):
         """generate a vector of complex dielectric function of a material
         sampled to the wavelengths (nm) in the input vector
@@ -79,14 +78,16 @@ class JC_gold(Material):
         self.OMP = 138. # plasma frequency in Hz/1E+14
         self.OM0 = 0.333 # collision frequency in Hz/1E+14  
         
-    def ncmplx_mfpcorr(self, ncmplx_bulk, waveln):
+    def _ncmplx_mfpcorr(self, ncmplx_bulk, waveln):
         """Mean free path correction
         
-        Not necessarily used by all materials
+        MFP is optionally applied to the bulk dielectric function (e.g.,
+        Johnson & Cristy gold) to account for nanometric features (e.g.,
+        small gold nanoparticles)
         
         The input takes the "bulk" complex dielectric function
         (as a vector)
-        together with a vector of the wavelengths
+        together with a vector of the (vacuum) wavelengths
         and material parameters
         
         Returns the MFP-corrected dielectric function
@@ -142,11 +143,14 @@ class JC_gold(Material):
         """
         Generate a vector of dielectric function values of the material
 
+        Interpolates between the tabulated values where necessary.
+
         Parameters
         ----------
         wvln_nm : np.ndarray(dtype=float)
             vector of wavelengths for which dielectric function
-            should be evaluated.
+            should be evaluated. The wavelengths are the spectroscopic (i.e. 
+            vacuum) wavelengths.
 
         Returns
         -------
@@ -163,7 +167,7 @@ class JC_gold(Material):
         
         # mean-free path correction if required
         if not self.MFPradius_nm == None:
-            ncmplx_wvln = self.ncmplx_mfpcorr(ncmplx_wvln0, wvln_nm)   
+            ncmplx_wvln = self._ncmplx_mfpcorr(ncmplx_wvln0, wvln_nm)   
         else:
             ncmplx_wvln = ncmplx_wvln0
         return ncmplx_wvln
